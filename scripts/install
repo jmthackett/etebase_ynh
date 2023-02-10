@@ -113,6 +113,10 @@ chown -R "$app:" "$final_path"
 #Cannot use empty string for X-script-name, causes an issue in the python prg
 ynh_script_progression --message="Setting up system configuration..." --weight=5
 
+if [ $path_url = "/" ] ; then
+	ynh_replace_string "        proxy_set_header	X-Script-Name" "#        proxy_set_header	X-Script-Name" ../conf/nginx.conf
+fi
+
 # Create a dedicated nginx config
 ynh_add_nginx_config
 
@@ -133,8 +137,8 @@ ynh_script_progression --message="Creating files and directory..." --weight=5
 # Access to the app is managed in the SSOwat part of the script.
 
 #build multimedia directory
-ynh_multimedia_build_main_dir
-ynh_multimedia_addaccess $app
+#ynh_multimedia_build_main_dir
+#ynh_multimedia_addaccess $app
 
 ynh_app_setting_set $app calibre_dir $calibre_dir
 
@@ -151,6 +155,12 @@ chown -R $app:$app /var/log/$app
 #=================================================
 # SPECIFIC SETUP
 #=================================================
+
+#Update Imagick policy as per https://github.com/janeczku/calibre-web/wiki/FAQ#what-to-do-if-cover-pictures-are-not-extracted-from-pdf-files
+ynh_replace_string --match_string="<policy domain="coder" rights="none" pattern="PDF" />" \
+		--replace_string="<policy domain="coder" rights="read" pattern="PDF" />" \
+		--target_file="/etc/ImageMagick-6/policy.xml"
+
 
 
 #=================================================
