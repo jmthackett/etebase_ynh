@@ -140,8 +140,6 @@ ynh_script_progression --message="Creating files and directory..." --weight=5
 #ynh_multimedia_build_main_dir
 #ynh_multimedia_addaccess $app
 
-ynh_app_setting_set $app calibre_dir $calibre_dir
-
 #=================================================
 # SETUP LOGROTATE
 #=================================================
