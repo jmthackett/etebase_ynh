@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#PKG_DEPENDENCIES="sqlite3 imagemagick libldap2-dev libsasl2-dev python3-venv python3-dev python3-lxml libjpeg-dev zlib1g-dev libffi-dev"
-PKG_DEPENDENCIES="sqlite3 python3-pip"
+PKG_DEPENDENCIES="python3-pip python3 python3-venv python3-dev python3-lxml"
+#PKG_DEPENDENCIES="sqlite3 python3-pip"
 
 DOSSIER_MEDIA=/home/yunohost.multimedia
 
