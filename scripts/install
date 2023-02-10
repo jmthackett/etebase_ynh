@@ -113,14 +113,8 @@ chown -R "$app:" "$final_path"
 #Cannot use empty string for X-script-name, causes an issue in the python prg
 ynh_script_progression --message="Setting up system configuration..." --weight=5
 
-
-if [ $path_url = "/" ] ; then
-	ynh_replace_string "        proxy_set_header	X-Script-Name" "#        proxy_set_header	X-Script-Name" ../conf/nginx.conf
-fi
-
 # Create a dedicated nginx config
 ynh_add_nginx_config
-
 
 #=================================================
 # SETUP SYSTEMD
@@ -141,13 +135,6 @@ ynh_script_progression --message="Creating files and directory..." --weight=5
 #build multimedia directory
 ynh_multimedia_build_main_dir
 ynh_multimedia_addaccess $app
-
-
-#Check if metadata.db file exists. If not create it (empty library)
-if [ ! -e "$calibre_dir"/metadata.db ]; then
-	cp -a ../conf/metadata.db.empty $calibre_dir/metadata.db
-	chown $app:$app $calibre_dir/*
-fi
 
 ynh_app_setting_set $app calibre_dir $calibre_dir
 
