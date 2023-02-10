@@ -1,0 +1,3 @@
+SOURCE_URL=https://github.com/etesync/server/archive/refs/tags/0.11.0.zip
+SOURCE_SUM=b0c3a8343261ccc62cf7c04b5928d84bf2e7ef20930daaa441d4aa26b1f3a73e
+SOURCE_FORMAT=zip
