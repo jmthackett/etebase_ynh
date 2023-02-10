@@ -27,6 +27,17 @@
         "nginx"
     ],
     "arguments": {
-        "install" : []
+        "install" : [
+            {
+                "name": "domain",
+                "type": "domain"
+            },
+            {
+                "name": "path",
+                "type": "path",
+                "example": "/etebase",
+                "default": "/etebase"
+            }
+        ]
     }
 }
