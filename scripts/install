@@ -165,12 +165,6 @@ chown -R $app:$app /var/log/$app
 # SPECIFIC SETUP
 #=================================================
 
-#Update Imagick policy as per https://github.com/janeczku/calibre-web/wiki/FAQ#what-to-do-if-cover-pictures-are-not-extracted-from-pdf-files
-ynh_replace_string --match_string="<policy domain="coder" rights="none" pattern="PDF" />" \
-		--replace_string="<policy domain="coder" rights="read" pattern="PDF" />" \
-		--target_file="/etc/ImageMagick-6/policy.xml"
-
-
 
 #=================================================
 # STORE THE CHECKSUM OF THE CONFIG FILE
