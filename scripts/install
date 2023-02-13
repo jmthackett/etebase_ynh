@@ -125,7 +125,6 @@ ynh_add_nginx_config
 #=================================================
 ynh_script_progression --message="Creating a MySQL database..."
 
-db_name=$(ynh_sanitize_dbid --db_name=$app)
 db_user=$db_name
 ynh_app_setting_set --app=$app --key=db_name --value=$db_name
 ynh_mysql_setup_db --db_user=$db_user --db_name=$db_name
@@ -165,8 +164,9 @@ chown -R $app:$app /var/log/$app
 # SPECIFIC SETUP
 #=================================================
 
+db_password=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
 ynh_add_config --template="etebase-server.ini" --destination="/etc/etebase-server/etebase-server.ini"
-ynh_replace_special_string --match_string="__DB_PASSWORD__" --replace_string=$db_pwd --target_file="/etc/etebase-server/etebase-server.ini"
+ynh_replace_special_string --match_string="__DB_PASSWORD__" --replace_string=$db_password --target_file="/etc/etebase-server/etebase-server.ini"
 
 #=================================================
 # STORE THE CHECKSUM OF THE CONFIG FILE
