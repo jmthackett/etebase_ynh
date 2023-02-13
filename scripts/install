@@ -104,6 +104,8 @@ chown -R "$app:" "$final_path"
 	set -o nounset
 	ynh_exec_as $app $final_path/venv/bin/pip3 install --upgrade wheel pip setuptools
 	ynh_exec_as $app $final_path/venv/bin/pip3 install --no-cache-dir --upgrade -r "$final_path/requirements.txt"
+        ynh_exec_as $app $final_path/venv/bin/pip3 install psycopg2 # this is slightly ick but less ick than using sqlite as our main database
+
 )
 
 
@@ -121,6 +123,12 @@ fi
 ynh_add_nginx_config
 
 #=================================================
+# POSTGRESQL CONFIGURATION
+#=================================================
+
+ynh_psql_setup_db --db_user=etesync --db_name=etesync
+
+#=================================================
 # SETUP SYSTEMD
 #=================================================
 
@@ -135,6 +143,8 @@ ynh_script_progression --message="Creating files and directory..." --weight=5
 # If app is set to be private but access is requested for all user, we will assume the same
 # If app is set to be private but access is limited to the admin user, we will set it inside his own multimedia directory.
 # Access to the app is managed in the SSOwat part of the script.
+
+mkdir -p /etc/etebase-server
 
 #build multimedia directory
 #ynh_multimedia_build_main_dir
@@ -154,20 +164,18 @@ chown -R $app:$app /var/log/$app
 # SPECIFIC SETUP
 #=================================================
 
-
+ynh_add_config --template="etebase-server.ini" --destination="/etc/etebase-server/etebase-server.ini"
 
 #=================================================
 # STORE THE CHECKSUM OF THE CONFIG FILE
 #=================================================
 
-# Calculate and store the config file checksum into the app settings
-#ynh_store_file_checksum "${final_path}/app.db"
 
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
 
-yunohost service add $app --description="Browse eBook in the web" --log="$log_file"
+yunohost service add $app --description="Sync calendar, contact, and notes - E2EE" --log="$log_file"
 
 
 #=================================================
