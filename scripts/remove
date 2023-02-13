@@ -15,6 +15,7 @@ source /usr/share/yunohost/helpers
 ynh_script_progression --message="Loading installation settings..." --weight=3
 
 app=$YNH_APP_INSTANCE_NAME
+db_name=$(ynh_sanitize_dbid --db_name=$app)
 domain=$(ynh_app_setting_get $app domain)
 port=$(ynh_app_setting_get $app port)
 final_path=$(ynh_app_setting_get $app final_path)
