@@ -48,8 +48,8 @@ ynh_remove_systemd_config
 #=================================================
 ynh_script_progression --message="Backing up mysql database and removing..." --weight=2
 date=$(printf '%(%Y-%m-%d %H:%M:%S)T')
-ynh_mysql_dump_db --database=$db_name > "/tmp/${app}_db_dump-${date}.sql" # give people who do silly things a chance to undo some of the damage
-ynh_mysql_remove_db --db_user=$db_name --db_name=$db_name
+ynh_psql_dump_db $db_name > "/tmp/${app}_db_dump-${date}.sql" # give people who do silly things a chance to undo some of the damage
+ynh_psql_remove_db --db_user=$db_name --db_name=$db_name
 
 #=================================================
 # REMOVE DEPENDENCIES
