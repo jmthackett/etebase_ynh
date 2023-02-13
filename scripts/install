@@ -176,7 +176,7 @@ chown -R $app:$app /var/log/$app
 
 db_password=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
 ynh_add_config --template="etebase-server.ini" --destination="/etc/etebase-server/etebase-server.ini"
-ynh_replace_special_string --match_string="__DB_PASSWORD__" --replace_string=$db_password --target_file="/etc/etebase-server/etebase-server.ini"
+ynh_replace_special_string --match_string="__DB_PASSWORD__" --replace_string=$db_pwd --target_file="/etc/etebase-server/etebase-server.ini"
 
 #=================================================
 # STORE THE CHECKSUM OF THE CONFIG FILE
