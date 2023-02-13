@@ -123,7 +123,8 @@ ynh_add_nginx_config
 #=================================================
 # POSTGRESQL CONFIGURATION
 #=================================================
-
+ynh_script_progression --message="Configuring Postgresql database..."
+ynh_psql_test_if_first_run
 ynh_psql_setup_db --db_user=etesync --db_name=etesync
 
 #=================================================
