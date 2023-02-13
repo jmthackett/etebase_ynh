@@ -151,6 +151,10 @@ ynh_script_progression --message="Creating files and directory..." --weight=5
 # Access to the app is managed in the SSOwat part of the script.
 
 mkdir -p /etc/etebase-server
+mkdir -p /home/yunohost.app/etesync/static
+mkdir -p /home/yunohost.app/etesync/static
+mkdir -p /home/yunohost.app/etesync/media
+chown -R $app:$app /home/yunohost.app/etesync
 
 #build multimedia directory
 #ynh_multimedia_build_main_dir
