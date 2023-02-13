@@ -84,7 +84,7 @@ ynh_system_user_create --username="$app" --home_dir="$final_path" --use_shell
 #=================================================
 
 ynh_script_progression --message="Installing package dependencies..." --weight=80
-ynh_install_app_dependencies $PKG_DEPENDENCIES
+ynh_exec_warn_less ynh_install_app_dependencies $PKG_DEPENDENCIES
 
 #Use venv to install pip requirements - Inspired from https://github.com/YunoHost-Apps/pyinventory_ynh/blob/master/scripts/install
 ynh_script_progression --message="Installing pip requirements..." --weight=70
