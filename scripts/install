@@ -174,9 +174,20 @@ chown -R $app:$app /var/log/$app
 # SPECIFIC SETUP
 #=================================================
 
+# set db password in etebase config file
 db_password=$(ynh_app_setting_get --app=$app --key=psqlpwd)
 ynh_add_config --template="etebase-server.ini" --destination="/etc/etebase-server/etebase-server.ini"
 ynh_replace_special_string --match_string="__DB_PASSWORD__" --replace_string=$db_pwd --target_file="/etc/etebase-server/etebase-server.ini"
+
+# run migrations, in a subshell so we don't pollute the environment
+(
+        set +o nounset
+        source "${final_path}/venv/bin/activate"
+        set -o nounset
+        ynh_exec_as $app $final_path/manage.py migrate
+)
+
+
 
 #=================================================
 # STORE THE CHECKSUM OF THE CONFIG FILE
