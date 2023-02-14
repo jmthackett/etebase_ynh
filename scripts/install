@@ -180,13 +180,12 @@ ynh_add_config --template="etebase-server.ini" --destination="/etc/etebase-serve
 ynh_replace_special_string --match_string="__DB_PASSWORD__" --replace_string=$db_pwd --target_file="/etc/etebase-server/etebase-server.ini"
 
 # run migrations
-python3 -m venv "${final_path}/venv"
-cd "${final_path}"
 (
         set +o nounset
         source "${final_path}/venv/bin/activate"
         set -o nounset
-        ynh_exec_as $app $final_path/manage.py migrate
+        ynh_exec_as $app cd $final_path
+        ynh_exec_as $app ./manage.py migrate
 )
 
 
