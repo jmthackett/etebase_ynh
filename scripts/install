@@ -184,8 +184,7 @@ ynh_replace_special_string --match_string="__DB_PASSWORD__" --replace_string=$db
         set +o nounset
         source "${final_path}/venv/bin/activate"
         set -o nounset
-        ynh_exec_as $app cd $final_path
-        ynh_exec_as $app ./manage.py migrate
+        ynh_exec_as $app $final_path/manage.py migrate
 )
 
 
